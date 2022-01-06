@@ -1,16 +1,17 @@
 const oracledb = require('oracledb');
-const dbConfig = require("./dboracle")
+const dbConfig = require("./dboracle");
+const mongoose = require('mongoose');
 
-// Initialize database
-const initialize = async() => {
+// Initialize ORACLE database
+const initialize = async () => {
     await oracledb.createPool(dbConfig.connection);
 }
 
-// Close database
-const close = async() => {
+// Close ORACLE database
+const close = async () => {
     await oracledb.getPool('lp').close();
 }
-// Make queries
+// Make ORACLE queries
 const simpleExecute = (statement) => {
     return new Promise(async (resolve, reject) => {
         let connection = await oracledb.getConnection('lp')
@@ -29,7 +30,7 @@ const simpleExecute = (statement) => {
 
         } catch (err) {
             reject(err);
-            
+
         } finally {
             if (connection) {
                 try {
@@ -43,8 +44,27 @@ const simpleExecute = (statement) => {
 
 }
 
+const mongoConnection = async () => {
+
+    try {
+
+        await mongoose.connect(process.env.MONGODB_CNN, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+
+        console.log('Connected to Mongo database');
+
+    } catch (error) {
+        console.log(error);
+        throw new Error('MongoDB connection error');
+    }
+
+}
+
 module.exports = {
     initialize,
     close,
-    simpleExecute
+    simpleExecute,
+    mongoConnection
 };

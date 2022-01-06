@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company API</title>
+  </head>
+  <body>
+    <div style="display: block; max-width: 100%; margin: 30px; word-wrap: break-word;">
+      <h1>Users by company API - Ludycom</h1>
+      <hr />
+      <p>Contact <b>javier.echavez@ludycom.com</b> for a user account</p>
+      <p>Query users by providing company code (GET)</p>
+      <p>You must login with a ludycom account to make API requests</p>
+      <p>Use the token provided on postman as a header. key = ludy-token</p>
+      <h2>Login</h2>
+      <p><input id="user" type="text" /> User</p>
+      <p><input id="password" type="password" /> Password</p>
+      <p id="token"></p>
+      <button type="button" onclick="loginToken()">Login</button>
+
+      <h3>Endpoints examples</h3>
+      <ul>
+        <li>
+          <p>
+            Get all users:
+            <code
+              ><a href="" onclick="getUsers(event)"
+                >http://192.168.2.105:8080/api/users</a
+              ></code
+            >
+          </p>
+        </li>
+        <li>
+          <p>
+            Get users in a specific company:
+            <code
+              ><a href="" onclick="getUsersCompany(event)"
+                >http://192.168.2.105:8080/api/users?company=7000</a
+              ></code
+            >
+          </p>
+        </li>
+      </ul>
+
+      <pre id="result"></pre>
+    </div>
+  </body>
+</html>
+
+<script src="./index.js"></script>

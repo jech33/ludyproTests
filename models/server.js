@@ -20,6 +20,9 @@ class Server {
         // App routes
         this.routes();
 
+        // Public directory
+        this.app.use(express.static('public'));
+
     }
 
     middlewares() {
@@ -57,15 +60,21 @@ class Server {
         try {
             console.log("Initializing database connection")
             await dbConfig.initialize();
+            console.log("Connected to Oracle database")
         } catch (error) {
             console.error(error);
             process.exit(1); // Non-zero failure code
         }
     }
 
+    async connectMongo() {
+        await dbConfig.mongoConnection();
+    }
+
     async startup() {        
         // Conectar a base de datos
         await this.conectarDB();
+        await this.connectMongo();
         
         // Listen server
         this.listen()
