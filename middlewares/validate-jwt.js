@@ -1,5 +1,6 @@
 const { response, request } = require('express');
 const jwt = require('jsonwebtoken');
+const CONFIG1 = require("../index.json");
 
 const validateJWT = async (req = request, res = response, next) => {
 
@@ -13,7 +14,7 @@ const validateJWT = async (req = request, res = response, next) => {
 
     try {
         
-        const { username } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
+        const { username } = jwt.verify(token, CONFIG1.jwt.SECRETORPRIVATEKEY);
 
         req.userAuth = username;
 

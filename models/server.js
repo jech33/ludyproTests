@@ -2,13 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const dbConfig = require('../db/config');
+const CONFIG1 = require("../index.json");
 
 class Server {
 
     constructor() {
         // Set attributes
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = CONFIG1.PORT;
 
         // Routes paths
         this.usuariosPath = '/api/users';

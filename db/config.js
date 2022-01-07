@@ -1,10 +1,11 @@
 const oracledb = require('oracledb');
 const dbConfig = require("./dboracle");
 const mongoose = require('mongoose');
+const CONFIG1 = require("../index.json");
 
 // Initialize ORACLE database
 const initialize = async () => {
-    await oracledb.createPool(dbConfig.connection);
+    await oracledb.createPool(dbConfig.connection());
 }
 
 // Close ORACLE database
@@ -48,7 +49,7 @@ const mongoConnection = async () => {
 
     try {
 
-        await mongoose.connect(process.env.MONGODB_CNN, {
+        await mongoose.connect(CONFIG1.MONGODB_CNN, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });

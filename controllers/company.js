@@ -2,15 +2,21 @@ const { request, response } = require('express');
 const { find } = require('../helpers/company.js');
 const User = require('../models/user.js');
 const bcryptjs = require('bcryptjs');
+const { parseJwt } = require('../helpers/parse-jwt.js');
 
 const usersByCompanyGet = async (req = request, res = response) => {
   try {
     const context = {};
 
     context.company = req.query.company;
-    console.log(`\nQueried by company`)
-    console.log(`Current authenticated user = "${req.userAuth}"`)
-    console.log(req.query)
+    const token = req.headers["ludy-token"];
+    const { id } = parseJwt(token);
+    const { email } = await User.findById(id);
+
+    console.log(`\nQueried by company`);
+    console.log(`Current authenticated user = "${req.userAuth || email}"`);
+    const queryToConsole = Object.keys(req.query).length ? req.query : "Not queried by company";
+    console.log(queryToConsole);
 
     const rows = await find(context);
     console.log(`${rows.length || 0} records found`);

@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+const CONFIG1 = require("../index.json");
+const jwt = require('jsonwebtoken')
 
 const generateJWT = (id = "") => {
 
@@ -6,7 +7,7 @@ const generateJWT = (id = "") => {
 
         const payload = { id }
 
-        jwt.sign(payload, process.env.SECRETORPRIVATEKEY, {
+        jwt.sign(payload, CONFIG1.jwt.SECRETORPRIVATEKEY, {
             expiresIn: "2h"
         }, (err, token) => {
 
