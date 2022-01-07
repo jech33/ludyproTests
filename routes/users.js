@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { usersByCompanyGet, createUser } = require('../controllers/company.js');
+const { isAdmin } = require('../middlewares/validar-admin.js');
 const { validarCampos } = require('../middlewares/validar-campos.js');
 const { validateJWT } = require('../middlewares/validate-jwt.js');
 
@@ -8,7 +9,7 @@ const { validateJWT } = require('../middlewares/validate-jwt.js');
 const router = Router();
 
 // Routes 
-router.get('/', [validateJWT], usersByCompanyGet)
+router.get('/', [validateJWT, isAdmin], usersByCompanyGet)
 
 router.post('/', [
     check('email', 'Email not valid').isEmail(),
