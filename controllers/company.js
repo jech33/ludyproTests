@@ -15,7 +15,7 @@ const usersByCompanyGet = async (req = request, res = response) => {
 
     console.log(`\nQueried by company`);
     console.log(`Current authenticated user = "${req.userAuth || email}"`);
-    const queryToConsole = Object.keys(req.query).length ? req.query : "Not queried by company";
+    const queryToConsole = Object.keys(req.query).length ? req.query : "{ company: '' }";
     console.log(queryToConsole);
 
     const rows = await find(context);
